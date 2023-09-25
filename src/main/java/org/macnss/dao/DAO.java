@@ -15,3 +15,4 @@ public interface DAO<T> {
     T get(String slag) throws SQLException;
     List<T> getAll() throws SQLException;
 }
+
