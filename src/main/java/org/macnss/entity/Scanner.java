@@ -1,10 +1,11 @@
 package org.macnss.entity;
 
 import org.macnss.Enum.ScannerType;
+import org.macnss.interfaces.IDocument;
 
 import java.util.Date;
 
-public class Scanner {
+public class Scanner implements IDocument {
     private int id;
     private Date scannerDate;
     private ScannerType scannerType;
@@ -53,5 +54,10 @@ public class Scanner {
                 ", scannerType=" + scannerType +
                 ", results='" + results + '\'' +
                 '}';
+    }
+
+    @Override
+    public double calculateRefundAmount() {
+        return 0;
     }
 }
