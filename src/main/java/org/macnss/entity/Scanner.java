@@ -5,7 +5,7 @@ import org.macnss.interfaces.IDocument;
 
 import java.util.Date;
 
-public class Scanner implements IDocument {
+public class Scanner  {
     private int id;
     private Date scannerDate;
     private ScannerType scannerType;
@@ -56,8 +56,5 @@ public class Scanner implements IDocument {
                 '}';
     }
 
-    @Override
-    public double calculateRefundAmount() {
-        return 0;
-    }
+
 }
