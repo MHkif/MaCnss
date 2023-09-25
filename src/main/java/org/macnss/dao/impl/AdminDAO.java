@@ -1,4 +1,4 @@
-package org.macnss.impDAO;
+package org.macnss.dao.impl;
 
 
 public class AdminDAO {
