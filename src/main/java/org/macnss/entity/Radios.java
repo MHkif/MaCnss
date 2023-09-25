@@ -1,7 +1,6 @@
 package org.macnss.entity;
 
 import org.macnss.Enum.RadiosType;
-import org.macnss.interfaces.IDocument;
 
 import java.util.Date;
 
