@@ -5,17 +5,11 @@ import org.macnss.interfaces.IDocument;
 
 import java.util.Date;
 
-public class Radios implements IDocument {
+public class Radios {
     private int id;
     private Date radiosDate;
     private RadiosType radiosType;
     private String results;
-
-
-    @Override
-    public Double calculateRefundAmount() {
-        return null;
-    }
 
     public int getId() {
         return id;
@@ -48,4 +42,6 @@ public class Radios implements IDocument {
     public void setResults(String results) {
         this.results = results;
     }
+
+
 }

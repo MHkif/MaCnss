@@ -3,7 +3,7 @@ package org.macnss.entity;
 import org.macnss.Enum.MedicamentStatus;
 import org.macnss.interfaces.IDocument;
 
-public class Medicament  implements IDocument {
+public class Medicament {
     private int id;
     private String name;
     private MedicamentStatus medicamentStatus;
@@ -64,8 +64,4 @@ public class Medicament  implements IDocument {
                 '}';
     }
 
-    @Override
-    public Double calculateRefundAmount() {
-        return null;
-    }
 }
