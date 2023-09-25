@@ -11,7 +11,7 @@ public class Scanner implements IDocument {
     private ScannerType scannerType;
     private String results;
 
-    
+
     public int getId() {
         return id;
     }
