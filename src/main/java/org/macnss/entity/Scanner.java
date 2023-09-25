@@ -4,14 +4,14 @@ import org.macnss.Enum.ScannerType;
 
 import java.util.Date;
 
+
 public class Scanner  {
+
     private int id;
     private Date scannerDate;
     private ScannerType scannerType;
     private String results;
 
-    public Scanner(){
-    }
 
     public int getId() {
         return id;
@@ -54,6 +54,5 @@ public class Scanner  {
                 ", results='" + results + '\'' +
                 '}';
     }
-
 
 }
