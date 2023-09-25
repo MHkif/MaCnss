@@ -1,6 +1,7 @@
 package org.macnss.entity;
 
 import org.macnss.Enum.MedicamentStatus;
+import org.macnss.interfaces.IDocument;
 
 public class Medicament {
     private int id;
@@ -62,4 +63,6 @@ public class Medicament {
                 ", taux=" + taux +
                 '}';
     }
+
+   
 }

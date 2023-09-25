@@ -1,10 +1,11 @@
 package org.macnss.entity;
 
 import org.macnss.Enum.ScannerType;
+import org.macnss.interfaces.IDocument;
 
 import java.util.Date;
 
-public class Scanner {
+public class Scanner  {
     private int id;
     private Date scannerDate;
     private ScannerType scannerType;
@@ -54,4 +55,6 @@ public class Scanner {
                 ", results='" + results + '\'' +
                 '}';
     }
+
+
 }
