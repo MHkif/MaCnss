@@ -1,7 +1,7 @@
 package org.macnss.entity;
 
 import org.macnss.Enum.ScannerType;
-import org.macnss.interfaces.IDocument;
+
 
 import java.util.Date;
 
