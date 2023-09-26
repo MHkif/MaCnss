@@ -12,14 +12,25 @@ public class PrintStatement extends Controller {
     }
 
     public static void options(){
-        System.out.println("Choisis un option :");
+        System.out.println("\nYou want to :");
         System.out.println("1 - Log in as Admin .");
         System.out.println("2 - Log in as Agent .");
         System.out.println("3 - Shows Folders History .");
         System.out.println("0 - Quitter .");
         System.out.print("->  ");
-
     }
+
+    public static void adminOptions(){
+        System.out.println("\nAs an Admin you can : ");
+        System.out.println("1 - Create new agent .");
+        System.out.println("2 - Update an agent .");
+        System.out.println("3 - Get an agent .");
+        System.out.println("4 - Get all agents .");
+        System.out.println("5 - delete an agent .");
+        System.out.println("0 - Quitter .");
+        System.out.print("->  ");
+    }
+
     public static void field(){
         System.out.println("----------------------------------------------");
         System.out.println("\n-> Tap any key to continue  , Entre 0 to back to menu ?");
@@ -42,10 +53,7 @@ public class PrintStatement extends Controller {
             validatePasswordStatement(password);
         }else{
             backToMenu();
-
         }
-
-
     }
 
 
@@ -88,25 +96,24 @@ public class PrintStatement extends Controller {
         if(!Validator.validEmail(email)){
             boolean confirmEmail = true;
             while (confirmEmail){
-                System.out.println("\nYou have to provide a valid email ex: example@test.com .");
+                System.out.println("You have to provide a valid email ex: example@test.com .");
                 System.out.print("-> Email : ");
                 email  = scanner.nextLine();
-                if(Validator.validName(email)){
+                if(Validator.validEmail(email)){
                     confirmEmail = false;
                 }
             }
         }
-        System.out.println("is valid");
     }
 
     public  static void validatePasswordStatement(String password){
         if(!Validator.validName(password)){
             boolean confirmPassword = true;
             while (confirmPassword){
-                System.out.println("\nYou can't create an agent name using numbers - use letters .");
+                System.out.println("\nInvalid Entry , Format not accepted, use numbers & letters .");
                 System.out.print("-> Email : ");
                 password  = scanner.nextLine();
-                if(Validator.validName(password)){
+                if(Validator.validString(password)){
                     confirmPassword = false;
                 }
             }

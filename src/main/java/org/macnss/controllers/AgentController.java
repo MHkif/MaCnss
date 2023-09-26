@@ -1,6 +1,7 @@
 package org.macnss.controllers;
 
 import org.macnss.Services.AgentService;
+import org.macnss.entity.Admin;
 import org.macnss.helpers.PrintStatement;
 
 import java.sql.SQLException;
@@ -11,16 +12,14 @@ public class AgentController extends Controller{
 
     public  boolean login(){
 
-        System.out.println("\nLogin As Agent .");
-        System.out.println();
-        System.out.println("Enter your credentials :");
-
+        System.out.println("Login as Agent, Enter your creadentials :");
         System.out.print("-> Email : ");
         String email = scanner.nextLine();
         PrintStatement.validateEmailStatement(email);
-
         System.out.print("-> Password : ");
         String password = scanner.nextLine();
+        PrintStatement.validatePasswordStatement(password);
+
 
 
         try {

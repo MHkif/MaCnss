@@ -13,9 +13,14 @@ public class AdminService {
     AdminDAO adminDAO = new AdminDAO();
     AgentDAO agentDAO = new AgentDAO();
 
-    public boolean login(String email, String password) throws SQLException {
+    public Admin login(String email, String password) throws SQLException {
       Admin admin = adminDAO.login(email, password);
-        return admin != null;
+      if(admin != null){
+          return admin;
+      }else{
+          return null;
+      }
+
     }
 
     public Agent createAgent(Agent agent){

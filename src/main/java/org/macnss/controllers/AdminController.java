@@ -1,8 +1,10 @@
 package org.macnss.controllers;
 
 import org.macnss.Services.AdminService;
+import org.macnss.entity.Admin;
 import org.macnss.entity.Agent;
 import org.macnss.helpers.PrintStatement;
+import org.macnss.helpers.Validator;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -11,21 +13,54 @@ import java.util.UUID;
 public class AdminController extends Controller {
     AdminService adminService = new AdminService();
 
-    public  boolean login(){
-        
-        System.out.println("\nEnter your creadentials :");
+    public  void index(){
 
-        System.out.print("-> email : ");
+        PrintStatement.opening("Admin Panel");
+        try {
+
+            boolean isRunning = true;
+
+            while (isRunning){
+                PrintStatement.adminOptions();
+                String option = scanner.nextLine();
+                if(Validator.validInteger(option)){
+                    switch (Integer.parseInt(option)) {
+                        case 0 -> isRunning = false;
+                        case 1 -> this.createAgent();
+                        case 2 -> this.updateAgent();
+                        case 3 -> this.getAgent();
+                        case 4 -> this.getAllAgents();
+                        case 5 -> this.deleteAgent();
+                    }
+
+                }
+                else{
+                    System.out.println("\nInvalid Entry , Choose one of the following options: ");
+                }
+            }
+
+        }catch (Exception e){
+            System.out.println("Crashed : "+e);
+        }
+
+    }
+
+    public void login(){
+
+        System.out.println("Login as admin , Enter your creadentials :");
+        System.out.print("-> Email : ");
         String email = scanner.nextLine();
-        System.out.print("-> password : ");
+        PrintStatement.validateEmailStatement(email);
+        System.out.print("-> Password : ");
         String password = scanner.nextLine();
 
        try {
-           if(adminService.login(email, password)){
-               return true;
+           if(adminService.login(email, password) != null){
+               Admin admin = adminService.login(email, password);
+               this.index();
            }else {
 
-               return false;
+               System.out.println("Admin not found .");
            }
 
        } catch (SQLException e) {
@@ -54,7 +89,6 @@ public class AdminController extends Controller {
         agent.setEmail(email);
         agent.setPassword(password);
 
-        System.out.println(agent.toString());
 
         if(adminService.createAgent(agent) != null){
             System.out.println("Agent has been created successfully");
