@@ -55,13 +55,14 @@ public class AgentController extends Controller{
         if(agentService.login(email, password) != null){
             Agent agent = agentService.login(email, password);
             String code = "236565";
-            EmailService.sendEmail(code, "code verification ", agent.getEmail());
-            System.out.println("\nWe send you a code to your email , Please enter your code verification : ");
+            String text = "Code Verification sent by MaCnss : "+ code;
+            EmailService.sendEmail(text, "code verification ", agent.getEmail());
+            System.out.print("\nWe send you a code to your email , Please enter your code verification : \n->");
             String codeVer = scanner.nextLine();
             if(codeVer.equals(code)){
                 this.index();
             }else{
-                System.out.println("Code verification wrong .");
+                System.out.println("\nCode verification wrong .");
                 PrintStatement.backToMenu();
             }
 

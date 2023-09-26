@@ -58,7 +58,7 @@ public class PrintStatement extends Controller {
 
 
     public static void backToMenu(){
-        System.out.println("\n-> Cliquez sur n'importe quelle touche pour revenir  au menu .\n");
+        System.out.println("\n-> Tap any key to back to menu .\n");
         scanner.nextLine();
     }
 
