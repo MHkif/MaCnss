@@ -10,9 +10,9 @@ public class AdminController extends Controller {
 
     public  boolean login(){
         // Helpers.drawRec()
-        System.out.println("\nLogin To Your Panel .");
+        System.out.println("\nLogin As Admin .");
         System.out.println();
-        System.out.println("Enter your creadentials :");
+        System.out.println("Enter your credentials :");
         System.out.print("-> email : ");
         String email = scanner.nextLine();
         System.out.print("-> password : ");

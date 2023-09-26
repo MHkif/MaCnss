@@ -1,11 +1,14 @@
 package org.macnss.controllers;
 
 
+import org.macnss.entity.Agent;
+
 import java.util.Scanner;
 
 public class Navigator extends Controller {
 
     private final static AdminController adminController = new AdminController();
+    private final static AgentController agentController = new AgentController();
 
     public static void index(){
         System.out.println("You want to log as :");
@@ -21,7 +24,11 @@ public class Navigator extends Controller {
                 System.out.println("Login Failed ! Somthing went wrong ..");
             }
         }else{
-            System.out.println("Login As Agent ");
+            if(agentController.login()){
+                System.out.println("Agent logged in successfully");
+            }else{
+                System.out.println("Login Agent Failed ! Somthing went wrong ..");
+            }
         }
     }
 }

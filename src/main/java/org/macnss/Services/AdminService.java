@@ -14,4 +14,7 @@ public class AdminService {
         return admin != null;
     }
 
+    public void createAgent(){
+
     }
+}
