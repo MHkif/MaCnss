@@ -11,7 +11,7 @@ public interface DAO<T> {
 
     T insert(T t);
     T update(T t);
-    void delete(T t) throws SQLException;
-    T get(String slag) throws SQLException;
+    boolean delete(String slag) throws SQLException;
+    T get(String id) throws SQLException;
     List<T> getAll() throws SQLException;
 }

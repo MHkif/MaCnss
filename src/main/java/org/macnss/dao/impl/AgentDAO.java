@@ -51,10 +51,9 @@ public class AgentDAO implements IAgentDAO {
             preparedStatement.setString(5, agent.getVerificationCode());
 
             if(preparedStatement.executeUpdate() > 0){
-                System.out.println("Agent has been created successfully .");
+
                 return agent;
             }else {
-                System.out.println("Creation of Agent has been Failed");
 
                 return null;
             }
@@ -141,18 +140,19 @@ public class AgentDAO implements IAgentDAO {
     }
 
     @Override
-    public void delete(Agent agent) {
+    public boolean delete(String agentId) {
         String sql = "DELETE FROM agents WHERE id = ? ;";
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, agent.getId());
+            preparedStatement.setString(1, agentId);
 
             if(preparedStatement.executeUpdate() > 0){
-                System.out.println("Agent has been deleted successfully .");
-            }else {
-                System.out.println("Delete of Agent has been Failed");
-            }
+
+                return true;
+                }else {
+                    return false;
+                }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

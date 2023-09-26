@@ -44,13 +44,11 @@ public class AdminService {
     }
 
     public List<Agent> getAllAgents(){
-        List<Agent> agents = new ArrayList<Agent>();
-
+        List<Agent> agents = agentDAO.getAll();
         return agents;
     }
 
-    public boolean deleteAgent(){
-        Agent agent = new Agent();
-        return true;
+    public boolean deleteAgent(String agentId){
+        return agentDAO.delete(agentId);
     }
 }

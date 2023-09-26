@@ -10,6 +10,25 @@ public class Validator {
 
     public static boolean validString(String input){
 
+        String regex = "^[a-zA-Z][a-zA-Z0-9]*$";
+
+        // Compile the pattern
+        Pattern pattern = Pattern.compile(regex);
+
+        // Match the input against the pattern
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.matches()) {
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
+
+    public static boolean validName(String input){
+
         String pattern = "^[A-Za-z][A-Za-z\\s]*$";
 
         // Compile the pattern
@@ -20,8 +39,6 @@ public class Validator {
 
         // Check if the input matches the pattern
         return !input.isEmpty() && !input.matches(".*\\d.*") && matcher.matches();
-
-
 
     }
 
