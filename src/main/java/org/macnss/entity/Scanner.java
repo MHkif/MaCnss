@@ -4,6 +4,7 @@ import org.macnss.Enum.ScannerType;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> MACNSS-1
@@ -11,17 +12,19 @@ import org.macnss.Enum.ScannerType;
 >>>>>>> MACNSS-2
 =======
 >>>>>>> MACNSS-3
+=======
+>>>>>>> MACNSS-6
 
 import java.util.Date;
 
+
 public class Scanner  {
+
     private int id;
     private Date scannerDate;
     private ScannerType scannerType;
     private String results;
 
-    public Scanner(){
-    }
 
     public int getId() {
         return id;
@@ -64,6 +67,5 @@ public class Scanner  {
                 ", results='" + results + '\'' +
                 '}';
     }
-
 
 }
