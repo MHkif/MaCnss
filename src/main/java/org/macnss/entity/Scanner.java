@@ -2,9 +2,12 @@ package org.macnss.entity;
 
 import org.macnss.Enum.ScannerType;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> MACNSS-1
+=======
+>>>>>>> MACNSS-2
 
 import java.util.Date;
 
