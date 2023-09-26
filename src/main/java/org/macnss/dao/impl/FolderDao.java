@@ -53,6 +53,7 @@ public class FolderDao implements IFolderDAO {
         return false;
     }
 
+
     @Override
     public Folder get(String id) throws SQLException {
         Folder folder = null;
