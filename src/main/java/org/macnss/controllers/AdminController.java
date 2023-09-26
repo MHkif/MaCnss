@@ -12,17 +12,9 @@ public class AdminController extends Controller {
     AdminService adminService = new AdminService();
 
     public  boolean login(){
-<<<<<<< HEAD
-
+        
         System.out.println("\nEnter your creadentials :");
-=======
-        // Helpers.drawRec()
 
-        PrintStatement.opening("Admin Panel");
-
-        System.out.println();
-        System.out.println("Enter your credentials :");
->>>>>>> MACNSS-13
         System.out.print("-> email : ");
         String email = scanner.nextLine();
         System.out.print("-> password : ");
