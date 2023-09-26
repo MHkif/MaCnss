@@ -1,6 +1,10 @@
 package org.macnss.entity;
 
 import org.macnss.Enum.MedicamentStatus;
+<<<<<<< HEAD
+=======
+
+>>>>>>> MACNSS-3
 
 public class Medicament {
     private int id;
