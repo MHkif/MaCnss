@@ -56,8 +56,10 @@ public class AdminController extends Controller {
         PrintStatement.validateEmailStatement(email);
         System.out.print("-> Password : ");
         String password = scanner.nextLine();
+        PrintStatement.validatePasswordStatement(password);
 
-       try {
+
+        try {
            if(adminService.login(email, password) != null){
                Admin admin = adminService.login(email, password);
                this.index();

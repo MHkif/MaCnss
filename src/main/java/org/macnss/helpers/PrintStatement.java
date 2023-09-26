@@ -7,7 +7,7 @@ public class PrintStatement extends Controller {
     public static void  opening(String text){
         System.out.println();
         System.out.println("|----------------------------------------------------------------|");
-        System.out.println("|\t\t\t\t\t\t "+ text +" \t\t\t\t\t\t\t |");
+        System.out.println("\t\t\t\t\t\t "+ text +" \t\t\t\t\t\t\t |");
         System.out.println("|----------------------------------------------------------------|\n");
     }
 
@@ -107,7 +107,7 @@ public class PrintStatement extends Controller {
     }
 
     public  static void validatePasswordStatement(String password){
-        if(!Validator.validName(password)){
+        if(!Validator.validString(password)){
             boolean confirmPassword = true;
             while (confirmPassword){
                 System.out.println("\nInvalid Entry , Format not accepted, use numbers & letters .");
