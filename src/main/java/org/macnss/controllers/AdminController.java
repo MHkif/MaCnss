@@ -4,6 +4,7 @@ import org.macnss.Services.AdminService;
 import org.macnss.entity.Admin;
 import org.macnss.entity.Agent;
 import org.macnss.helpers.PrintStatement;
+import org.macnss.helpers.UniqueCodeGenerator;
 import org.macnss.helpers.Validator;
 
 import java.sql.SQLException;
@@ -83,8 +84,8 @@ public class AdminController extends Controller {
         String password = scanner.nextLine();
         PrintStatement.validatePasswordStatement(password);
 
-        String uniqueID = UUID.randomUUID().toString();
-        agent.setId(uniqueID);
+        String uniqueCode = UniqueCodeGenerator.generateUniqueCode();
+        agent.setId(uniqueCode);
         agent.setName(name);
         agent.setEmail(email);
         agent.setPassword(password);
@@ -92,6 +93,7 @@ public class AdminController extends Controller {
 
         if(adminService.createAgent(agent) != null){
             System.out.println("Agent has been created successfully");
+
         }else{
             System.out.println("Creation of Agent has been Failed");
         }
@@ -161,6 +163,7 @@ public class AdminController extends Controller {
     public void getAllAgents(){
         adminService.getAllAgents().forEach(System.out::println);
     }
+
 
     public void deleteAgent() {
         System.out.print("-> Enter agent id : ");
