@@ -31,5 +31,25 @@ public class AdminController extends Controller {
        }
     }
 
+    public void createAgent(){
+        System.out.println("Create new Agent Account");
+
+    }
+
+    public void updateAgent(){
+
+    }
+
+    public void getAgent(){
+
+    }
+
+    public void getAllAgents(){
+
+    }
+
+    public void deleteAgent(){
+
+    }
 
 }

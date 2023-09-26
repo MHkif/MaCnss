@@ -14,7 +14,5 @@ public class AgentService {
         Agent agent = agentDAO.login(email, password);
         return agent != null;
     }
-    public boolean create(Agent agent){
-        return agentDAO.insert(agent) != null;
-    }
+
 }
