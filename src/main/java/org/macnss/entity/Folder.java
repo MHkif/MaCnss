@@ -5,18 +5,43 @@ import org.macnss.Enum.FolderStatus;
 import java.util.Date;
 
 public class Folder {
-    private int id;
+    private String id;
+    private String folder_name;
     private Date depositDate;
     private FolderStatus folderStatus;
+    private Float return_price;
 
-    public Folder(){
+
+
+    public Folder(String id, String folder_name, Date depositDate, FolderStatus folderStatus, Float return_price) {
+        this.id = id;
+        this.folder_name = folder_name;
+        this.depositDate = depositDate;
+        this.folderStatus = folderStatus;
+        this.return_price = return_price;
     }
 
-    public int getId() {
+    public String getFolder_name() {
+        return folder_name;
+    }
+
+    public void setFolder_name(String folder_name) {
+        this.folder_name = folder_name;
+    }
+
+    public Float getReturn_price() {
+        return return_price;
+    }
+
+    public void setReturn_price(Float return_price) {
+        this.return_price = return_price;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
