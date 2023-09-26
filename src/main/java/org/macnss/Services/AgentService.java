@@ -10,9 +10,14 @@ public class AgentService {
 
     AgentDAO agentDAO = new AgentDAO();
 
-    public boolean login(String email, String password) throws SQLException {
+
+    public Agent login(String email, String password) {
         Agent agent = agentDAO.login(email, password);
-        return agent != null;
+        if(agent != null){
+            return agent;
+        }else{
+            return null;
+        }
     }
 
 }
