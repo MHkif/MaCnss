@@ -9,16 +9,40 @@ public class Folder {
     private String folder_name;
     private Date depositDate;
     private FolderStatus folderStatus;
+    private Patient patient;
     private Float return_price;
+    private Agent agent;
 
 
 
-    public Folder(String id, String folder_name, Date depositDate, FolderStatus folderStatus, Float return_price) {
+  public Folder(){
+
+  }
+
+    public Folder(String id, String folder_name, Date depositDate, FolderStatus folderStatus, Patient patient, Float return_price, Agent agent) {
         this.id = id;
         this.folder_name = folder_name;
         this.depositDate = depositDate;
         this.folderStatus = folderStatus;
+        this.patient = patient;
         this.return_price = return_price;
+        this.agent = agent;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
     }
 
     public String getFolder_name() {
@@ -29,7 +53,7 @@ public class Folder {
         this.folder_name = folder_name;
     }
 
-    public Float getReturn_price() {
+    public float getReturn_price() {
         return return_price;
     }
 

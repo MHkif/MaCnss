@@ -16,7 +16,7 @@ public class AgentDAO implements IAgentDAO {
     @Override
     public Agent login(String emailP, String passwordP) {
         Agent agent = new Agent();
-        String sql = "SELECT * FROM `agents` WHERE email = ? AND password = ? ";
+        String sql = "SELECT * FROM `Agent` WHERE email = ? AND password = ? ";
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -41,7 +41,7 @@ public class AgentDAO implements IAgentDAO {
     }
     @Override
     public Agent insert(Agent agent)  {
-        String sql = "INSERT INTO agents(id, name, email, password, verificationCode)  VALUES(?, ?, ?,?,?) ";
+        String sql = "INSERT INTO Agent(id, name, email, password, verificationCode)  VALUES(?, ?, ?,?,?) ";
 
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql);){
             preparedStatement.setString(1, agent.getId());
@@ -94,7 +94,7 @@ public class AgentDAO implements IAgentDAO {
     public List<Agent> getAll() {
         List<Agent> agents = new ArrayList<Agent>();
         Agent agent = new Agent();
-        String sql = "SELECT * FROM `agents` ;";
+        String sql = "SELECT * FROM `Agent` ;";
 
         try{
             Statement statement = connection.createStatement();
@@ -118,7 +118,7 @@ public class AgentDAO implements IAgentDAO {
 
     @Override
     public Agent update(Agent agent) {
-        String sql = "UPDATE agents SET name = ?, email = ?, password = ? WHERE id = ?";
+        String sql = "UPDATE Agent SET name = ?, email = ?, password = ? WHERE id = ?";
 
         try( PreparedStatement preparedStatement = connection.prepareStatement(sql);){
             preparedStatement.setString(1, agent.getName());

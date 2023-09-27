@@ -1,20 +1,27 @@
 package org.macnss.Services;
 
 import org.macnss.dao.impl.FolderDao;
+import org.macnss.entity.Document;
 import org.macnss.entity.Folder;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class FolderService {
-    private FolderDao folderDao;
+    private final FolderDao folderDao = new FolderDao();
 
-    public FolderService(FolderDao folderDao) {
-        this.folderDao = folderDao;
-    }
-    public Folder createFolder(Folder folder){
-        if (folderDao.insert(folder) != null){
+
+
+    public Folder createFolder(Folder folder, String patientMatricule){
+        if (folderDao.insert(folder,patientMatricule) != null){
             return folder;
+        }else {
+            return null;
+        }
+    }
+    public Document saveDocument(Document document, String folder_id){
+        if (folderDao.saveDocument(document) != null){
+            return document;
         }else {
             return null;
         }

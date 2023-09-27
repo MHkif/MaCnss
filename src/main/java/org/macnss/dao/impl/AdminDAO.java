@@ -14,7 +14,7 @@ public class AdminDAO {
 
     public Admin login(String email, String password) throws SQLException {
         Admin admin = null;
-        String sql = "SELECT * FROM `admin` WHERE email = ? AND password = ? ";
+        String sql = "SELECT * FROM `Admin` WHERE email = ? AND password = ? ";
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

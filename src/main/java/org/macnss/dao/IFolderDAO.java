@@ -10,6 +10,6 @@ public interface IFolderDAO extends DAO<Folder> {
     final String depositDate = "depositDate";
     final String folder_status = "folder_status";
     final String return_price = "return_price";
-
+    Folder insert(Folder folder,String patientMatricule);
 
 }

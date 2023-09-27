@@ -31,6 +31,17 @@ public class PrintStatement extends Controller {
         System.out.print("->  ");
     }
 
+    public static void agentOptions(){
+        System.out.println("\nAs an Agent you can : ");
+        System.out.println("1 - Create new folder .");
+        System.out.println("2 - Update a folder .");
+        System.out.println("3 - Get a folder .");
+        System.out.println("4 - Get all folder .");
+        System.out.println("5 - delete a folder .");
+        System.out.println("0 - Quitter .");
+        System.out.print("->  ");
+    }
+
     public static void field(){
         System.out.println("----------------------------------------------");
         System.out.println("\n-> Tap any key to continue  , Entre 0 to back to menu ?");

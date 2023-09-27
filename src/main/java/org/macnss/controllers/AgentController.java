@@ -1,17 +1,27 @@
 package org.macnss.controllers;
 
+import org.macnss.Enum.FolderStatus;
 import org.macnss.Services.AgentService;
 import org.macnss.Services.EmailService;
+import org.macnss.Services.FolderService;
+import org.macnss.dao.impl.AgentDAO;
 import org.macnss.entity.Admin;
 import org.macnss.entity.Agent;
+import org.macnss.entity.Folder;
+import org.macnss.entity.Patient;
 import org.macnss.helpers.PrintStatement;
+import org.macnss.helpers.UniqueCodeGenerator;
 import org.macnss.helpers.Validator;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class AgentController extends Controller{
 
     AgentService agentService = new AgentService();
+    FolderService folderService = new FolderService();
+    Agent agent ;
 
 
     public  void index(){
@@ -22,11 +32,12 @@ public class AgentController extends Controller{
             boolean isRunning = true;
 
             while (isRunning){
-                PrintStatement.adminOptions();
+                PrintStatement.agentOptions();
                 String option = scanner.nextLine();
                 if(Validator.validInteger(option)){
                     switch (Integer.parseInt(option)) {
                         case 0 -> isRunning = false;
+                        case 1 -> this.createFolder();
 
                     }
 
@@ -53,7 +64,7 @@ public class AgentController extends Controller{
         PrintStatement.validatePasswordStatement(password);
 
         if(agentService.login(email, password) != null){
-            Agent agent = agentService.login(email, password);
+             agent = agentService.login(email, password);
             String code = "236565";
             String text = "Code Verification sent by MaCnss : "+ code;
             EmailService.sendEmail(text, "code verification ", agent.getEmail());
@@ -62,6 +73,7 @@ public class AgentController extends Controller{
             if(codeVer.equals(code)){
                 this.index();
             }else{
+                agent = null;
                 System.out.println("\nCode verification wrong .");
                 PrintStatement.backToMenu();
             }
@@ -73,6 +85,45 @@ public class AgentController extends Controller{
 
 
         
+    }
+
+    public void createFolder(){
+        Folder folder = new Folder();
+//        Date currentDate = new Date();
+        java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+        System.out.println("Create new folder");
+        System.out.print("-> matricule of patient : ");
+        String matricule = scanner.nextLine();
+        PrintStatement.validateIdStatement(matricule);
+//        System.out.print("-> agent id : ");
+//        String agentId = scanner.nextLine();
+//        PrintStatement.validateNameStatement(agent.getId());
+        System.out.print("-> Name : ");
+        String name = scanner.nextLine();
+        PrintStatement.validateNameStatement(name);
+
+
+
+        String uniqueCode = UniqueCodeGenerator.generateUniqueCode();
+        folder.setId(uniqueCode);
+        folder.setFolder_name(name);
+        folder.setDepositDate(currentDate);
+        folder.setFolderStatus(FolderStatus.WAITING);
+        Patient patient = new Patient();
+        patient.setMatricule(matricule);
+        folder.setPatient(patient);
+        folder.setReturn_price(null);
+
+        folder.setAgent(agent);
+
+
+
+
+        if(folderService.createFolder(folder,matricule) != null){
+            System.out.println("folder has been created successfully");
+        }else{
+            System.out.println("Creation of folder has been Failed");
+        }
     }
 
 }
