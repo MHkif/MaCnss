@@ -2,6 +2,7 @@ package org.macnss.entity;
 
 import org.macnss.Enum.ScannerType;
 
+
 import java.util.Date;
 
 

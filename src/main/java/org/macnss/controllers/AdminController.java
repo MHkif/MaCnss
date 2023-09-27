@@ -16,6 +16,7 @@ public class AdminController extends Controller {
 
     public  void index(){
 
+
         PrintStatement.opening("Admin Panel");
         try {
 
@@ -46,6 +47,7 @@ public class AdminController extends Controller {
 
     }
 
+  
     public void login(){
 
         System.out.println("Login as admin , Enter your creadentials :");
