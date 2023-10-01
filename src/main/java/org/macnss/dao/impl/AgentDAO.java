@@ -1,7 +1,6 @@
 package org.macnss.dao.impl;
 
 import org.macnss.dao.IAgentDAO;
-import org.macnss.entity.Admin;
 import org.macnss.entity.Agent;
 
 import java.sql.PreparedStatement;
@@ -16,7 +15,7 @@ public class AgentDAO implements IAgentDAO {
     @Override
     public Agent login(String emailP, String passwordP) {
         Agent agent = new Agent();
-        String sql = "SELECT * FROM `agents` WHERE email = ? AND password = ? ";
+        String sql = "SELECT * FROM "+TABLE+" WHERE email = ? AND password = ? ";
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -24,10 +23,10 @@ public class AgentDAO implements IAgentDAO {
             preparedStatement.setString(2, passwordP);
             ResultSet res = preparedStatement.executeQuery();
             if (res.next()){
-                agent.setId(res.getString(id));
-                agent.setName(res.getString(name));
-                agent.setEmail(res.getString(email));
-                agent.setPassword(res.getString(password));
+                agent.setId(res.getString(ID));
+                agent.setName(res.getString(NAME));
+                agent.setEmail(res.getString(EMAIL));
+                agent.setPassword(res.getString(PASSWORD));
 
             }else {
                 return null;
@@ -72,10 +71,10 @@ public class AgentDAO implements IAgentDAO {
             ResultSet res = preparedStatement.executeQuery();
 
             if (res.next()){
-                agent.setId(res.getString(id));
-                agent.setName(res.getString(name));
-                agent.setEmail(res.getString(email));
-                agent.setPassword(res.getString(password));
+                agent.setId(res.getString(ID));
+                agent.setName(res.getString(NAME));
+                agent.setEmail(res.getString(EMAIL));
+                agent.setPassword(res.getString(PASSWORD));
             }else {
                 return  null;
             }
@@ -98,10 +97,10 @@ public class AgentDAO implements IAgentDAO {
             ResultSet res = statement.executeQuery(sql);
 
             while (res.next()){
-                agent.setId(res.getString(id));
-                agent.setName(res.getString(name));
-                agent.setEmail(res.getString(email));
-                agent.setPassword(res.getString(password));
+                agent.setId(res.getString(ID));
+                agent.setName(res.getString(NAME));
+                agent.setEmail(res.getString(EMAIL));
+                agent.setPassword(res.getString(PASSWORD));
                 agents.add(agent);
             }
 

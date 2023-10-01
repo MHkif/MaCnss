@@ -1,14 +1,16 @@
 package org.macnss.controllers;
 
 import org.macnss.Enum.DocumentStatus;
-import org.macnss.Enum.DocumentType;
 import org.macnss.Services.DocumentService;
 import org.macnss.Services.FolderService;
 import org.macnss.Services.PatientService;
 import org.macnss.entity.*;
+import org.macnss.entity.Folder;
 import org.macnss.helpers.PrintStatement;
 import org.macnss.helpers.UniqueCodeGenerator;
 
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,26 +18,22 @@ import java.sql.Date;
 import java.util.stream.Stream;
 
 public class FolderController extends Controller {
-    private final FolderService folderService = new FolderService();
-    private final PatientService patientService = new PatientService();
-    private final DocumentService documentService = new DocumentService();
+    private  FolderService folderService = new FolderService();
+     PatientService patientService = new PatientService();
+    private  DocumentService documentService = new DocumentService();
+
+
+
 
     public void createFolder(Agent agent){
-        Folder folder = new Folder();
-        Patient patient;
         List<ADocument> documents = new ArrayList<>();
-
-
-        System.out.println("======  Create new folder  ======");
-        folder.setAgent(agent);
-        folder.setId(UniqueCodeGenerator.code());
-        folder.setDepositDate(new Date(System.currentTimeMillis()));
+        PrintStatement.opening("Create new folder");
 
         System.out.print("-> Matriculate of patient : ");
         String matriculate = scanner.nextLine();
         PrintStatement.validateIdStatement(matriculate,"Matriculate of patient");
-
-        patient = patientService.get(matriculate);
+        Folder folder = new Folder();
+        Patient patient = patientService.get(matriculate);
 
         if(Objects.isNull(patient)){
             boolean isNull = true;
@@ -50,6 +48,9 @@ public class FolderController extends Controller {
                 }
             }
         }else {
+            folder.setAgent(agent);
+            folder.setId(UniqueCodeGenerator.code());
+            folder.setDepositDate(new Date(System.currentTimeMillis()));
             folder.setPatient(patient);
             System.out.print("-> Name : ");
             String folder_name = scanner.nextLine();
@@ -61,17 +62,18 @@ public class FolderController extends Controller {
             addRadios(folder).forEach(documents::add);
             addScanners(folder).forEach(documents::add);
 
-            double total = documents.stream()
-                    .mapToDouble(ADocument::getRefund_rate)
-                    .sum();
+           // double total = documents.stream().mapToDouble(aDocument -> aDocument.getPrice() * aDocument.getRefund_rate() / 100).sum();
 
-            // TODO : Calculate
+            double total = 0.0;
+            for (ADocument aDocument : documents) {
+                double refund = aDocument.getPrice() * aDocument.getRefund_rate() / 100;
+                total += refund;
+            }
+
             folder.setTotal_refund(Float.parseFloat(String.valueOf(total)));
 
-
-
+            System.out.print("\n");
             if(folderService.create(folder) != null){
-
                 for (ADocument document: documents) {
                     if(documentService.create(document) != null){
                         System.out.println("Document "+ document.getTitle()+" has been created successfully");
@@ -80,27 +82,61 @@ public class FolderController extends Controller {
                     }
                 }
                 System.out.println("folder has been created successfully");
-
             }else{
                 System.out.println("Creation of folder has been Failed");
             }
         }
     }
+    public void getAllFolder() throws SQLException {
+        PrintStatement.opening("All Folders");
+        folderService.getAll().forEach(System.out::println);
+    }
+
+    public void getFolder() throws SQLException {
+        PrintStatement.opening("Folder");
+        System.out.print("\nTo continue click any key , Enter on 0 ta exit .\n-> ");
+        String  doc_option  = scanner.nextLine();
+        if(!doc_option.equals("0")){
+            System.out.print("-> Folder ID : ");
+            String folder_id = scanner.nextLine();
+            PrintStatement.validateIdStatement(folder_id,"Folder ID");
+            Folder folder =  folderService.get(folder_id);
+
+            if(Objects.isNull(folder)){
+                boolean isNull = true;
+                while (isNull){
+                    System.out.println("Folder not found , please provide a valid Folder ID .");
+                    System.out.print("-> Folder ID : ");
+                    folder_id = scanner.nextLine();
+                    PrintStatement.validateIdStatement(folder_id,"Folder ID");
+                    if(Objects.nonNull(patientService.get(folder_id))){
+                        folder = folderService.get(folder_id);
+                        System.out.println(folder.toString());
+                        System.out.print("\nClick any key to exit .\n-> ");
+                        scanner.nextLine();
+                        isNull = false;
+                    }
+                }
+
+            }
+        }
+
+    }
 
     public  List<ADocument> addDocuments(Folder folder){
         List<ADocument> documents = new ArrayList<>();
-        System.out.println("To add Documents click any key , Enter on 0 ta exit .");
+        System.out.print("\nTo add Documents click any key , Enter on 0 ta exit .\n-> ");
         String  doc_option  = scanner.nextLine();
         if(!doc_option.equals("0"))
         {
+            PrintStatement.opening("Add new Document");
             Document document = new Document();
             int num = 1;
             boolean addingNew = true;
             while (addingNew){
 
-                System.out.println("Document "+num +" :\n");
+                System.out.println("Document "+num +" :");
                 document.setId(UniqueCodeGenerator.code());
-
                 System.out.print("-> Title : ");
                 String doc_title = scanner.nextLine();
                 PrintStatement.validateNameStatement(doc_title, "Title");
@@ -121,7 +157,7 @@ public class FolderController extends Controller {
 
                 documents.add(document);
 
-                System.out.println("To add  new document click any key , Enter on 0 ta exit .");
+                System.out.print("\nTo add  new document click any key , Enter on 0 ta exit .\n-> ");
                 String  click  = scanner.nextLine();
                 if(click.equals("0")){
                     addingNew = false;
@@ -134,17 +170,16 @@ public class FolderController extends Controller {
     }
     public List<ADocument> addMedicines(Folder folder){
         List<ADocument> medicines = new ArrayList<>();
-        System.out.println("To add Medicines click any key , Enter on 0 ta exit .");
+        System.out.print("\nTo add Medicines click any key , Enter on 0 ta exit .\n-> ");
         String  med_option  = scanner.nextLine();
        if(!med_option.equals("0")) {
-
+           PrintStatement.opening("Add new Medicine");
             Medicine medicine = new Medicine();
-
             int num = 1;
             boolean addingNew = true;
             while (addingNew){
                 java.sql.Date createdAt = new java.sql.Date(System.currentTimeMillis());
-                System.out.println("Medicine "+num +" :\n");
+                System.out.println("Medicine "+num +" : ");
                 String med_id = UniqueCodeGenerator.code();
                 medicine.setId(med_id);
 
@@ -158,9 +193,8 @@ public class FolderController extends Controller {
                 PrintStatement.validateNumberStatement(med_price, "Price");
                 medicine.setPrice(Float.parseFloat(med_price));
 
-                System.out.print("-> Refund Availability  : ");
-                System.out.println("1 -> Yes");
-                System.out.println("2 -> No");
+                System.out.println("-> Refund Availability  : ");
+                System.out.print("1 -> Yes \n2 -> No \n-> ");
                 String med_refund_av = scanner.nextLine();
 
                 if(!(med_refund_av.equals("1") || med_refund_av.equals("2"))){
@@ -168,11 +202,9 @@ public class FolderController extends Controller {
 
                     boolean notValid = true;
                     while (notValid){
-                        System.out.print("-> Refund Availability  : ");
-                        System.out.println("1 -> Yes");
-                        System.out.println("2 -> No");
+                        System.out.println("-> Refund Availability  : ");
+                        System.out.print("1 -> Yes \n2 -> No \n-> ");
                         med_refund_av = scanner.nextLine();
-
                         if(med_refund_av.equals("1") || med_refund_av.equals("2")){
                             notValid = false;
                         }else{
@@ -195,7 +227,7 @@ public class FolderController extends Controller {
 
                 medicines.add(medicine);
 
-                System.out.println("To add  new medicines click any key , Enter on 0 ta exit .");
+                System.out.println("\nTo add  new medicines click any key , Enter on 0 ta exit .\n-> ");
                 String  click  = scanner.nextLine();
                 if(click.equals("0")){
                     addingNew = false;
@@ -209,12 +241,12 @@ public class FolderController extends Controller {
 
     public List<ADocument> addRadios(Folder folder){
         List<ADocument> radios = new ArrayList<>();
-        System.out.println("To add a Radio click any key , Enter on 0 ta exit .");
+        System.out.print("\nTo add a Radio click any key , Enter on 0 ta exit . \n-> ");
         String  radio_option  = scanner.nextLine();
         if(!radio_option.equals("0")) {
+            PrintStatement.opening("Add new Radio");
             Radio radio = new Radio();
             int num = 1;
-
             boolean addingNew = true;
             while (addingNew){
                 System.out.println("Radio "+num +" :\n");
@@ -231,9 +263,8 @@ public class FolderController extends Controller {
                 PrintStatement.validateNumberStatement(med_price, "Price");
                 radio.setPrice(Float.parseFloat(med_price));
 
-                System.out.print("-> Refund Availability  : ");
-                System.out.println("1 -> Yes");
-                System.out.println("2 -> No");
+                System.out.println("-> Refund Availability  : ");
+                System.out.print("1 -> Yes \n2 -> No \n-> ");
                 String med_refund_av = scanner.nextLine();
 
                 if(!(med_refund_av.equals("1") || med_refund_av.equals("2"))){
@@ -241,9 +272,8 @@ public class FolderController extends Controller {
 
                     boolean notValid = true;
                     while (notValid){
-                        System.out.print("-> Refund Availability  : ");
-                        System.out.println("1 -> Yes");
-                        System.out.println("2 -> No");
+                        System.out.println("-> Refund Availability  : ");
+                        System.out.print("1 -> Yes \n2 -> No \n-> ");
                         med_refund_av = scanner.nextLine();
 
                         if(med_refund_av.equals("1") || med_refund_av.equals("2")){
@@ -268,7 +298,7 @@ public class FolderController extends Controller {
 
                 radios.add(radio);
 
-                System.out.println("To add a new Radios click any key , Enter on 0 ta exit .");
+                System.out.print("\nTo add a new Radios click any key , Enter on 0 ta exit . \n-> ");
                 String  click  = scanner.nextLine();
                 if(click.equals("0")){
                     addingNew = false;
@@ -282,9 +312,10 @@ public class FolderController extends Controller {
 
     public List<ADocument> addScanners(Folder folder){
         List<ADocument> scanners = new ArrayList<>();
-        System.out.println("To add a Scanner click any key , Enter on 0 ta exit .");
+        System.out.print("\nTo add a Scanner click any key , Enter on 0 ta exit . \n-> ");
         String  radio_option  = scanner.nextLine();
         if(!radio_option.equals("0")) {
+            PrintStatement.opening("Add new Scanner");
             Scanner scanner1 = new Scanner();
             int num = 1;
 
@@ -304,9 +335,8 @@ public class FolderController extends Controller {
                 PrintStatement.validateNumberStatement(med_price, "Price");
                 scanner1.setPrice(Float.parseFloat(med_price));
 
-                System.out.print("-> Refund Availability  : ");
-                System.out.println("1 -> Yes");
-                System.out.println("2 -> No");
+                System.out.println("-> Refund Availability  : ");
+                System.out.print("1 -> Yes \n2 -> No \n-> ");
                 String med_refund_av = scanner.nextLine();
 
                 if(!(med_refund_av.equals("1") || med_refund_av.equals("2"))){
@@ -314,9 +344,8 @@ public class FolderController extends Controller {
 
                     boolean notValid = true;
                     while (notValid){
-                        System.out.print("-> Refund Availability  : ");
-                        System.out.println("1 -> Yes");
-                        System.out.println("2 -> No");
+                        System.out.println("-> Refund Availability  : ");
+                        System.out.print("1 -> Yes \n2 -> No \n-> ");
                         med_refund_av = scanner.nextLine();
 
                         if(med_refund_av.equals("1") || med_refund_av.equals("2")){
@@ -338,10 +367,9 @@ public class FolderController extends Controller {
 
                 scanner1.setCreatedAt(new Date(System.currentTimeMillis()));
                 scanner1.setFolder(folder);
-
                 scanners.add(scanner1);
 
-                System.out.println("To add a new Scanner click any key , Enter on 0 ta exit .");
+                System.out.print("\nTo add a new Scanner click any key , Enter on 0 ta exit .");
                 String  click  = scanner.nextLine();
                 if(click.equals("0")){
                     addingNew = false;

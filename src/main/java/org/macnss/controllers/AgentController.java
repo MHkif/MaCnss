@@ -12,25 +12,27 @@ import org.macnss.helpers.Validator;
 public class AgentController extends Controller{
 
     private final AgentService agentService = new AgentService();
-   private final FolderController folderController = new FolderController();
-    Agent agent ;
+   private  FolderController folderController = new FolderController();
+    Agent agent;
 
 
     public  void index(Agent agent){
 
-        PrintStatement.opening("Agent Panel");
-        System.out.println(agent.toString());
         try {
 
             boolean isRunning = true;
 
             while (isRunning){
+                PrintStatement.opening("Agent Panel");
                 PrintStatement.agentOptions();
                 String option = scanner.nextLine();
                 if(Validator.validInteger(option)){
                     switch (Integer.parseInt(option)) {
                         case 0 -> isRunning = false;
-                        case 1 -> this.create(agent);
+                        case 1 -> folderController.createFolder(agent);
+                        case 2 -> folderController.getFolder();
+                        case 3 -> folderController.getAllFolder();
+
                     }
                 }
                 else{
@@ -74,9 +76,5 @@ public class AgentController extends Controller{
 
         }
         
-    }
-
-    public void create(Agent agent){
-        folderController.createFolder(agent);
     }
 }

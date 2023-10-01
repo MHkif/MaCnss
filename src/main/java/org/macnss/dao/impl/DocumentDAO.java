@@ -5,23 +5,19 @@ import org.macnss.entity.ADocument;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class DocumentDAO implements IDocumentDAO {
 
 
 
     @Override
     public ADocument insert(ADocument ADocument) {
-        String sql = "INSERT INTO "+table+"(id, title, type, price, refund_rate, folder_id, createdAt)  VALUES(?,?,?,?,?,?,?) ";
+        String sql = "INSERT INTO "+TABLE+"(id, title, type, price, refund_rate, folder_id, createdAt)  VALUES(?,?,?,?,?,?,?) ";
 
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql);){
             preparedStatement.setString(1, ADocument.getId());
             preparedStatement.setString(2, ADocument.getTitle());
-            preparedStatement.setString(3, ADocument.getType().toString());
+            preparedStatement.setString(3, String.valueOf(ADocument.getType()));
             preparedStatement.setFloat(4, ADocument.getPrice());
             preparedStatement.setFloat(5, ADocument.getRefund_rate());
             preparedStatement.setString(6, ADocument.getFolder().getId());

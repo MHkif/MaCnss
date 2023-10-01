@@ -7,12 +7,12 @@ public class PrintStatement extends Controller {
     public static void  opening(String text){
         System.out.println();
         System.out.println("|----------------------------------------------------------------|");
-        System.out.println("\t\t\t\t\t\t "+ text +" \t\t\t\t\t\t\t |");
+        System.out.println("\t\t\t\t\t\t "+ text +" \t\t\t\t\t\t\t ");
         System.out.println("|----------------------------------------------------------------|\n");
     }
 
     public static void options(){
-        System.out.println("\nYou want to :");
+        System.out.println("You want to :");
         System.out.println("1 - Log in as Admin .");
         System.out.println("2 - Log in as Agent .");
         System.out.println("3 - Shows Folders History .");
@@ -34,10 +34,9 @@ public class PrintStatement extends Controller {
     public static void agentOptions(){
         System.out.println("\nAs an Agent you can : ");
         System.out.println("1 - Create new folder .");
-        System.out.println("2 - Update a folder .");
-        System.out.println("3 - Get a folder .");
-        System.out.println("4 - Get all folder .");
-        System.out.println("5 - delete a folder .");
+        System.out.println("2 - Get a folder .");
+        System.out.println("3 - Get all folder .");
+        System.out.println("4 - delete a folder .");
         System.out.println("0 - Quitter .");
         System.out.print("->  ");
     }

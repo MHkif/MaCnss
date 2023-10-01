@@ -5,11 +5,11 @@ import org.macnss.entity.Agent;
 import java.sql.SQLException;
 
 public interface IAgentDAO extends DAO<Agent>{
-    final String table = "agents";
-    final String id = "id";
-    final String name = "name";
-    final String email = "email";
-    final String password = "password";
+    final String TABLE = "agents";
+    final String ID = "id";
+    final String NAME = "name";
+    final String EMAIL = "email";
+    final String PASSWORD = "password";
 
     public Agent login(String email, String password) throws SQLException;
 }

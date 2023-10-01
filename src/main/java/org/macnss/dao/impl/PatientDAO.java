@@ -1,7 +1,6 @@
 package org.macnss.dao.impl;
 
 import org.macnss.dao.IPatient;
-import org.macnss.entity.Agent;
 import org.macnss.entity.Patient;
 
 import java.sql.PreparedStatement;
@@ -15,7 +14,7 @@ public class PatientDAO implements IPatient {
 
     @Override
     public Patient insert(Patient patient)  {
-        String sql = "INSERT INTO "+table+"(matriculate, name)  VALUES(?,?) ";
+        String sql = "INSERT INTO "+ TABLE +"(matriculate, name)  VALUES(?,?) ";
 
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql);){
             preparedStatement.setString(1, patient.getMatriculate());
@@ -35,7 +34,7 @@ public class PatientDAO implements IPatient {
     @Override
     public Patient get(String matriculate) {
         Patient patient = new Patient();
-        String sql = "SELECT * FROM +"+table+" WHERE id = ?";
+        String sql = "SELECT * FROM "+ TABLE +" WHERE matriculate = ?";
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -43,8 +42,8 @@ public class PatientDAO implements IPatient {
             ResultSet res = preparedStatement.executeQuery();
 
             if (res.next()){
-                patient.setMatricule(res.getString(matriculate_col));
-                patient.setFullName(res.getString(fullName));
+                patient.setMatricule(res.getString(MATRICULATE_COL));
+                patient.setFullName(res.getString(FULL_NAME));
             }else {
                 return  null;
             }
@@ -60,14 +59,14 @@ public class PatientDAO implements IPatient {
     public List<Patient> getAll() {
         List<Patient> patients = new ArrayList<Patient>();
         Patient patient = new Patient();
-        String sql = "SELECT * FROM "+table;
+        String sql = "SELECT * FROM "+ TABLE;
         try{
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery(sql);
 
             while (res.next()){
-                patient.setMatricule(res.getString(matriculate_col));
-                patient.setFullName(res.getString(fullName));
+                patient.setMatricule(res.getString(MATRICULATE_COL));
+                patient.setFullName(res.getString(FULL_NAME));
                 patients.add(patient);
             }
 
@@ -79,7 +78,7 @@ public class PatientDAO implements IPatient {
 
     @Override
     public Patient update(Patient patient) {
-        String sql = "UPDATE "+table+" SET fullName = ? WHERE matriculate = ?";
+        String sql = "UPDATE "+ TABLE +" SET fullName = ? WHERE matriculate = ?";
 
         try( PreparedStatement preparedStatement = connection.prepareStatement(sql);){
             preparedStatement.setString(1, patient.getFullName());

@@ -8,20 +8,20 @@ import java.util.List;
 
 public interface IDocumentDAO {
     final Connection connection = Database.getConnection();
-    final String table = "documents";
+    final String TABLE = "documents";
 
-    final String id = "id";
+    final String ID = "id";
 
-    final String title = "title";
+    final String TITLE = "title";
 
-    final String type = "type";
-    final String createdAt = "createdAt";
+    final String TYPE = "type";
+    final String CREATED_AT = "createdAt";
 
-    final String price = "price";
+    final String PRICE = "price";
 
-    final String refund_rate = "refund_rate";
+    final String REFUND_RATE = "refund_rate";
 
-
+    final String FOLDER_ID = "folder_id";
     public ADocument insert(ADocument ADocument);
 
     public float calculateRefundAmount(ADocument ADocument);

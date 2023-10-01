@@ -10,24 +10,13 @@ public class Folder {
     private Date depositDate;
     private FolderStatus status = FolderStatus.WAITING;
     private Patient patient;
-    private float total_refund = Float.parseFloat(null);
+    private float total_refund = 0;
     private Agent agent;
 
+    public Folder() {
 
-
-  public Folder(){
-
-  }
-
-    public Folder(String id, String name, Date depositDate, FolderStatus status, Patient patient, Float total_refund, Agent agent) {
-        this.id = id;
-        this.name = name;
-        this.depositDate = depositDate;
-        this.status = status;
-        this.patient = patient;
-        this.total_refund = total_refund;
-        this.agent = agent;
     }
+
 
     public Patient getPatient() {
         return patient;

@@ -1,14 +1,14 @@
 package org.macnss.Services;
 
 import org.macnss.dao.impl.DocumentDAO;
-import org.macnss.dao.impl.FolderDao;
+import org.macnss.dao.impl.FolderDAO;
 import org.macnss.entity.Folder;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class FolderService {
-    private final FolderDao folderDao = new FolderDao();
+    private final FolderDAO folderDao = new FolderDAO();
     private final DocumentDAO documentDao = new DocumentDAO();
 
     public Folder create(Folder folder){
