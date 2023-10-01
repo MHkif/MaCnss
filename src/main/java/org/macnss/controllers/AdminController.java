@@ -78,7 +78,7 @@ public class AdminController extends Controller {
         System.out.println("Create new Agent Account");
         System.out.print("-> Name : ");
         String name = scanner.nextLine();
-        PrintStatement.validateNameStatement(name);
+        PrintStatement.validateNameStatement(name, "Name");
 
         System.out.print("-> Email : ");
         String email = scanner.nextLine();
@@ -88,8 +88,7 @@ public class AdminController extends Controller {
         String password = scanner.nextLine();
         PrintStatement.validatePasswordStatement(password);
 
-        String uniqueCode = UniqueCodeGenerator.generateUniqueCode();
-        agent.setId(uniqueCode);
+        agent.setId(UniqueCodeGenerator.code());
         agent.setName(name);
         agent.setEmail(email);
         agent.setPassword(password);
@@ -109,14 +108,14 @@ public class AdminController extends Controller {
 
         System.out.print("-> Enter agent id : ");
         String agentId = scanner.nextLine();
-        PrintStatement.validateIdStatement(agentId);
+        PrintStatement.validateIdStatement(agentId, "agent");
 
         if(adminService.getAgent(agentId) != null ){
             Agent agent = adminService.getAgent(agentId);
             System.out.println("Update :");
             System.out.print("-> Name : ");
             String name = scanner.nextLine();
-            PrintStatement.validateNameStatement(name);
+            PrintStatement.validateNameStatement(name, "Name");
 
             System.out.print("-> Email : ");
             String email = scanner.nextLine();
@@ -154,7 +153,7 @@ public class AdminController extends Controller {
     public void getAgent(){
         System.out.print("-> Enter agent id : ");
         String agentId = scanner.nextLine();
-        PrintStatement.validateIdStatement(agentId);
+        PrintStatement.validateIdStatement(agentId, "agent");
 
         if(adminService.getAgent(agentId) != null ){
             System.out.println(adminService.getAgent(agentId).toString());
@@ -172,7 +171,7 @@ public class AdminController extends Controller {
     public void deleteAgent() {
         System.out.print("-> Enter agent id : ");
         String agentId = scanner.next();
-        PrintStatement.validateIdStatement(agentId);
+        PrintStatement.validateIdStatement(agentId , "agent");
         if (adminService.getAgent(agentId) != null) {
 
             if (adminService.deleteAgent(agentId)) {

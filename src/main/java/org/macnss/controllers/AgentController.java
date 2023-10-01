@@ -4,29 +4,22 @@ import org.macnss.Enum.FolderStatus;
 import org.macnss.Services.AgentService;
 import org.macnss.Services.EmailService;
 import org.macnss.Services.FolderService;
-import org.macnss.dao.impl.AgentDAO;
-import org.macnss.entity.Admin;
-import org.macnss.entity.Agent;
-import org.macnss.entity.Folder;
-import org.macnss.entity.Patient;
+import org.macnss.entity.*;
 import org.macnss.helpers.PrintStatement;
 import org.macnss.helpers.UniqueCodeGenerator;
 import org.macnss.helpers.Validator;
 
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
-
 public class AgentController extends Controller{
 
-    AgentService agentService = new AgentService();
-    FolderService folderService = new FolderService();
+    private final AgentService agentService = new AgentService();
+   private final FolderController folderController = new FolderController();
     Agent agent ;
 
 
-    public  void index(){
+    public  void index(Agent agent){
 
         PrintStatement.opening("Agent Panel");
+        System.out.println(agent.toString());
         try {
 
             boolean isRunning = true;
@@ -37,10 +30,8 @@ public class AgentController extends Controller{
                 if(Validator.validInteger(option)){
                     switch (Integer.parseInt(option)) {
                         case 0 -> isRunning = false;
-                        case 1 -> this.createFolder();
-
+                        case 1 -> this.create(agent);
                     }
-
                 }
                 else{
                     System.out.println("\nInvalid Entry , Choose one of the following options: ");
@@ -48,7 +39,7 @@ public class AgentController extends Controller{
             }
 
         }catch (Exception e){
-            System.out.println("Crashed : "+e);
+            System.out.println("Crashed : "+ e.getCause());
         }
 
     }
@@ -71,7 +62,7 @@ public class AgentController extends Controller{
             System.out.print("\nWe send you a code to your email , Please enter your code verification : \n->");
             String codeVer = scanner.nextLine();
             if(codeVer.equals(code)){
-                this.index();
+                this.index(agent);
             }else{
                 agent = null;
                 System.out.println("\nCode verification wrong .");
@@ -79,51 +70,13 @@ public class AgentController extends Controller{
             }
 
         }else {
-            System.out.println("Admin not found .");
+            System.out.println("Agent not found .");
 
         }
-
-
         
     }
 
-    public void createFolder(){
-        Folder folder = new Folder();
-//        Date currentDate = new Date();
-        java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
-        System.out.println("Create new folder");
-        System.out.print("-> matricule of patient : ");
-        String matricule = scanner.nextLine();
-        PrintStatement.validateIdStatement(matricule);
-//        System.out.print("-> agent id : ");
-//        String agentId = scanner.nextLine();
-//        PrintStatement.validateNameStatement(agent.getId());
-        System.out.print("-> Name : ");
-        String name = scanner.nextLine();
-        PrintStatement.validateNameStatement(name);
-
-
-
-        String uniqueCode = UniqueCodeGenerator.generateUniqueCode();
-        folder.setId(uniqueCode);
-        folder.setFolder_name(name);
-        folder.setDepositDate(currentDate);
-        folder.setFolderStatus(FolderStatus.WAITING);
-        Patient patient = new Patient();
-        patient.setMatricule(matricule);
-        folder.setPatient(patient);
-        folder.setReturn_price(null);
-
-        folder.setAgent(agent);
-
-
-
-
-        if(folderService.createFolder(folder,matricule) != null){
-            System.out.println("folder has been created successfully");
-        }else{
-            System.out.println("Creation of folder has been Failed");
-        }
+    public void create(Agent agent){
+        folderController.createFolder(agent);
     }
-
 }

@@ -16,7 +16,7 @@ public class AgentDAO implements IAgentDAO {
     @Override
     public Agent login(String emailP, String passwordP) {
         Agent agent = new Agent();
-        String sql = "SELECT * FROM `Agent` WHERE email = ? AND password = ? ";
+        String sql = "SELECT * FROM `agents` WHERE email = ? AND password = ? ";
 
         try{
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -28,7 +28,6 @@ public class AgentDAO implements IAgentDAO {
                 agent.setName(res.getString(name));
                 agent.setEmail(res.getString(email));
                 agent.setPassword(res.getString(password));
-                agent.setVerificationCode(res.getString(verificationCode));
 
             }else {
                 return null;
@@ -41,14 +40,13 @@ public class AgentDAO implements IAgentDAO {
     }
     @Override
     public Agent insert(Agent agent)  {
-        String sql = "INSERT INTO Agent(id, name, email, password, verificationCode)  VALUES(?, ?, ?,?,?) ";
+        String sql = "INSERT INTO agents(id, name, email, password, verificationCode)  VALUES(?, ?, ?,?,?) ";
 
         try(PreparedStatement preparedStatement = connection.prepareStatement(sql);){
             preparedStatement.setString(1, agent.getId());
             preparedStatement.setString(2, agent.getName());
             preparedStatement.setString(3, agent.getEmail());
             preparedStatement.setString(4, agent.getPassword());
-            preparedStatement.setString(5, agent.getVerificationCode());
 
             if(preparedStatement.executeUpdate() > 0){
 
@@ -78,7 +76,6 @@ public class AgentDAO implements IAgentDAO {
                 agent.setName(res.getString(name));
                 agent.setEmail(res.getString(email));
                 agent.setPassword(res.getString(password));
-                agent.setVerificationCode(res.getString(verificationCode));
             }else {
                 return  null;
             }
@@ -105,7 +102,6 @@ public class AgentDAO implements IAgentDAO {
                 agent.setName(res.getString(name));
                 agent.setEmail(res.getString(email));
                 agent.setPassword(res.getString(password));
-                agent.setVerificationCode(res.getString(verificationCode));
                 agents.add(agent);
             }
 
@@ -118,7 +114,7 @@ public class AgentDAO implements IAgentDAO {
 
     @Override
     public Agent update(Agent agent) {
-        String sql = "UPDATE Agent SET name = ?, email = ?, password = ? WHERE id = ?";
+        String sql = "UPDATE agents SET name = ?, email = ?, password = ? WHERE id = ?";
 
         try( PreparedStatement preparedStatement = connection.prepareStatement(sql);){
             preparedStatement.setString(1, agent.getName());

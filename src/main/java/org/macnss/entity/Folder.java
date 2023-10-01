@@ -6,11 +6,11 @@ import java.util.Date;
 
 public class Folder {
     private String id;
-    private String folder_name;
+    private String name;
     private Date depositDate;
-    private FolderStatus folderStatus;
+    private FolderStatus status = FolderStatus.WAITING;
     private Patient patient;
-    private Float return_price;
+    private float total_refund = Float.parseFloat(null);
     private Agent agent;
 
 
@@ -19,13 +19,13 @@ public class Folder {
 
   }
 
-    public Folder(String id, String folder_name, Date depositDate, FolderStatus folderStatus, Patient patient, Float return_price, Agent agent) {
+    public Folder(String id, String name, Date depositDate, FolderStatus status, Patient patient, Float total_refund, Agent agent) {
         this.id = id;
-        this.folder_name = folder_name;
+        this.name = name;
         this.depositDate = depositDate;
-        this.folderStatus = folderStatus;
+        this.status = status;
         this.patient = patient;
-        this.return_price = return_price;
+        this.total_refund = total_refund;
         this.agent = agent;
     }
 
@@ -45,20 +45,20 @@ public class Folder {
         this.agent = agent;
     }
 
-    public String getFolder_name() {
-        return folder_name;
+    public String getName() {
+        return name;
     }
 
-    public void setFolder_name(String folder_name) {
-        this.folder_name = folder_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public float getReturn_price() {
-        return return_price;
+    public float getTotal_refund() {
+        return total_refund;
     }
 
-    public void setReturn_price(Float return_price) {
-        this.return_price = return_price;
+    public void setTotal_refund(float total_refund) {
+        this.total_refund = total_refund;
     }
 
     public String getId() {
@@ -77,12 +77,12 @@ public class Folder {
         this.depositDate = depositDate;
     }
 
-    public FolderStatus getFolderStatus() {
-        return folderStatus;
+    public FolderStatus getStatus() {
+        return status;
     }
 
-    public void setFolderStatus(FolderStatus folderStatus) {
-        this.folderStatus = folderStatus;
+    public void setStatus(FolderStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Folder {
         return "Folder{" +
                 "id=" + id +
                 ", depositDate=" + depositDate +
-                ", folderStatus=" + folderStatus +
+                ", folderStatus=" + status +
                 '}';
     }
 }

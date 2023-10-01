@@ -42,30 +42,6 @@ public class PrintStatement extends Controller {
         System.out.print("->  ");
     }
 
-    public static void field(){
-        System.out.println("----------------------------------------------");
-        System.out.println("\n-> Tap any key to continue  , Entre 0 to back to menu ?");
-        if(!scanner.nextLine().equals("0")){
-
-            System.out.println("\n-> Create new agent account : ");
-
-            System.out.print("\n-> Name : ");
-            String name  = scanner.nextLine();
-            validateNameStatement(name);
-
-            System.out.print("-> Email : ");
-            String email  = scanner.nextLine();
-
-            validateEmailStatement(email);
-
-            System.out.print("-> Password : ");
-            String password  = scanner.nextLine();
-
-            validatePasswordStatement(password);
-        }else{
-            backToMenu();
-        }
-    }
 
 
     public static void backToMenu(){
@@ -73,12 +49,12 @@ public class PrintStatement extends Controller {
         scanner.nextLine();
     }
 
-    public  static void validateIdStatement(String id){
+    public  static void validateIdStatement(String id, String field){
         if(!Validator.validString(id)){
             boolean confirmName = true;
             while (confirmName){
-                System.out.println("\nYou can't create an agent id using numbers - use letters .");
-                System.out.print("-> Id : ");
+                System.out.println("\nYou can't start by a numbers for this field - start by letters .");
+                System.out.print("-> "+ field +" : ");
                 id  = scanner.nextLine();
                 if(Validator.validString(id)){
                     confirmName = false;
@@ -88,19 +64,32 @@ public class PrintStatement extends Controller {
 
     }
 
-    public  static void validateNameStatement(String name){
+    public  static void validateNameStatement(String name, String field){
         if(!Validator.validName(name)){
             boolean confirmName = true;
             while (confirmName){
-                System.out.println("\nYou can't create an agent name using numbers - use letters .");
-                System.out.print("-> Name : ");
+                System.out.println("\nYou can't use numbers for this field - use letters .");
+                System.out.print("-> "+ field +" : ");
                 name  = scanner.nextLine();
                 if(Validator.validName(name)){
                     confirmName = false;
                 }
             }
         }
+    }
 
+    public  static void validateNumberStatement(String num, String field){
+        if(!Validator.validInteger(num)){
+            boolean confirmName = true;
+            while (confirmName){
+                System.out.println("\nYou can't use letters for this field - use numbers .");
+                System.out.print("-> "+ field +" : ");
+                num  = scanner.nextLine();
+                if(Validator.validInteger(num)){
+                    confirmName = false;
+                }
+            }
+        }
     }
 
     public  static void validateEmailStatement(String email){
@@ -121,8 +110,8 @@ public class PrintStatement extends Controller {
         if(!Validator.validString(password)){
             boolean confirmPassword = true;
             while (confirmPassword){
-                System.out.println("\nInvalid Entry , Format not accepted, use numbers & letters .");
-                System.out.print("-> Email : ");
+                System.out.println("\nInvalid Entry , Format not accepted, use numbers & letters only .");
+                System.out.print("-> Password : ");
                 password  = scanner.nextLine();
                 if(Validator.validString(password)){
                     confirmPassword = false;

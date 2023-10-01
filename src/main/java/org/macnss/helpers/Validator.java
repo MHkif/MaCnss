@@ -59,9 +59,14 @@ public class Validator {
 
     }
 
-    public static boolean validInteger(String str){
+    public static boolean validInteger(String input){
 
-        if(Pattern.matches(regexInteger, str)){
+        Pattern regex = Pattern.compile(regexInteger);
+
+        // Create a Matcher object
+        Matcher matcher = regex.matcher(input);
+
+        if(matcher.matches()){
             return true;
         }else {
             return false;

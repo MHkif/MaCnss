@@ -47,8 +47,8 @@ public class Navigator extends Controller {
     private void folderHistory(){
 
         System.out.print("Enter you matriculate reference : ");
-        String matricule = scanner.nextLine();
-        PrintStatement.validateIdStatement(matricule);
+        String matriculate = scanner.nextLine();
+        PrintStatement.validateIdStatement(matriculate , "matriculate");
 
 
     }

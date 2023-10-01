@@ -4,7 +4,7 @@ public class Patient {
     private String matricule;
     private String fullName;
 
-    public String getMatricule() {
+    public String getMatriculate() {
         return matricule;
     }
 

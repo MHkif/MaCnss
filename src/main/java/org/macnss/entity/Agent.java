@@ -5,7 +5,6 @@ public class Agent {
     private String name;
     private String email;
     private String password;
-    private String verificationCode;
 
     public Agent() {
 
@@ -43,13 +42,6 @@ public class Agent {
         this.password = password;
     }
 
-    public String getVerificationCode() {
-        return verificationCode;
-    }
-
-    public void setVerificationCode(String verificationCode) {
-        this.verificationCode = verificationCode;
-    }
 
     @Override
     public String toString() {
@@ -58,7 +50,6 @@ public class Agent {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", verificationCode='" + verificationCode + '\'' +
                 '}';
     }
 }
