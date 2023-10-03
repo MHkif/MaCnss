@@ -24,11 +24,14 @@ public class FolderService {
         return folderDao.getAll();
     }
     public Folder get(String folderId) throws SQLException {
+
         if (folderDao.get(folderId) != null){
             return folderDao.get(folderId);
         }else  {
             return  null;
         }
+
+
     }
 
 

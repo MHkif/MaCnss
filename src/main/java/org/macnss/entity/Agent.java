@@ -45,11 +45,11 @@ public class Agent {
 
     @Override
     public String toString() {
-        return "Agent{" +
+        return "Agent { \n" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                '}';
+                "\n}";
     }
 }

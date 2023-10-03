@@ -76,10 +76,13 @@ public class Folder {
 
     @Override
     public String toString() {
-        return "Folder{" +
-                "id=" + id +
-                ", depositDate=" + depositDate +
-                ", folderStatus=" + status +
-                '}';
+        return "Folder {\n" +
+                "ID = " + id +
+                ", Deposit At = " + depositDate +
+                ", Status = " + status +
+                ", Total Refund = " + total_refund +
+                ", Patient = \n" + patient.toString() +
+                ", Agent = \n" + agent.toString() +
+                "\n}";
     }
 }
