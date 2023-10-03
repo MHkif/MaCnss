@@ -11,6 +11,9 @@ public abstract class ADocument {
     private String id;
     private String title;
     private Date createdAt;
+
+
+
     private DocumentType type = DocumentType.DOCUMENT;
     private DocumentStatus status = DocumentStatus.ACCEPTED;
     private Folder folder;
@@ -52,6 +55,9 @@ public abstract class ADocument {
         return type;
     }
 
+    public void setType(DocumentType type) {
+        this.type = type;
+    }
     public void setStatus(DocumentStatus status) {
         this.status = status;
     }

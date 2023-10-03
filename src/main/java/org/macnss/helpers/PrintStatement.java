@@ -12,7 +12,7 @@ public class PrintStatement extends Controller {
     }
 
     public static void options(){
-        System.out.println("You want to :");
+        System.out.println("\nYou want to :");
         System.out.println("1 - Log in as Admin .");
         System.out.println("2 - Log in as Agent .");
         System.out.println("3 - Shows Folders History .");

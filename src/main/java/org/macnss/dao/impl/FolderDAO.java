@@ -75,12 +75,12 @@ public class FolderDAO implements IFolderDAO {
                 folder.setDepositDate(resultSet.getDate(DEPOSIT_DATE));
                 folder.setStatus(FolderStatus.valueOf(resultSet.getString(STATUS)));
                 folder.setTotal_refund(resultSet.getFloat(TOTAL_REFUND));
-                folder.setPatient((Patient) resultSet.getObject(PATIENT_MATRICULATE));
-                folder.setAgent((Agent) resultSet.getObject(AGENT_ID));
+                //folder.setPatient((Patient) resultSet.getObject(PATIENT_MATRICULATE));
+                //folder.setAgent((Agent) resultSet.getObject(AGENT_ID));
 
             }
         }catch (SQLException e){
-            e.printStackTrace();
+            new RuntimeException();
         }
         return folder;
     }
@@ -99,8 +99,8 @@ public class FolderDAO implements IFolderDAO {
                 folder.setDepositDate(resultSet.getDate(DEPOSIT_DATE));
                 folder.setStatus(FolderStatus.valueOf(resultSet.getString(STATUS)));
                 folder.setTotal_refund(resultSet.getFloat(TOTAL_REFUND));
-                folder.setPatient((Patient) resultSet.getObject(PATIENT_MATRICULATE));
-                folder.setAgent((Agent) resultSet.getObject(AGENT_ID));
+                //folder.setPatient((Patient) resultSet.getObject(PATIENT_MATRICULATE));
+                //folder.setAgent((Agent) resultSet.getObject(AGENT_ID));
                 folders.add(folder);
             }
         }catch (SQLException e){

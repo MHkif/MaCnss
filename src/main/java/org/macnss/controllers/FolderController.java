@@ -1,6 +1,7 @@
 package org.macnss.controllers;
 
 import org.macnss.Enum.DocumentStatus;
+import org.macnss.Enum.DocumentType;
 import org.macnss.Services.DocumentService;
 import org.macnss.Services.FolderService;
 import org.macnss.Services.PatientService;
@@ -62,13 +63,7 @@ public class FolderController extends Controller {
             addRadios(folder).forEach(documents::add);
             addScanners(folder).forEach(documents::add);
 
-           // double total = documents.stream().mapToDouble(aDocument -> aDocument.getPrice() * aDocument.getRefund_rate() / 100).sum();
-
-            double total = 0.0;
-            for (ADocument aDocument : documents) {
-                double refund = aDocument.getPrice() * aDocument.getRefund_rate() / 100;
-                total += refund;
-            }
+            double total = documents.stream().mapToDouble(aDocument -> aDocument.getPrice() * aDocument.getRefund_rate() / 100).sum();
 
             folder.setTotal_refund(Float.parseFloat(String.valueOf(total)));
 
@@ -76,12 +71,14 @@ public class FolderController extends Controller {
             if(folderService.create(folder) != null){
                 for (ADocument document: documents) {
                     if(documentService.create(document) != null){
-                        System.out.println("Document "+ document.getTitle()+" has been created successfully");
+                        System.out.println("\nDocument "+ document.getTitle()+" has been created successfully");
+                        System.out.println("Refund amount of this document is :"+  document.getPrice() * document.getRefund_rate() / 100);
                     }else{
                         System.out.println("Creation of Document "+ document.getTitle()+" has been Failed");
                     }
                 }
                 System.out.println("folder has been created successfully");
+                System.out.println("Refund amount of this folder is :"+ folder.getTotal_refund());
             }else{
                 System.out.println("Creation of folder has been Failed");
             }
@@ -89,7 +86,11 @@ public class FolderController extends Controller {
     }
     public void getAllFolder() throws SQLException {
         PrintStatement.opening("All Folders");
-        folderService.getAll().forEach(System.out::println);
+        List<Folder> folders = folderService.getAll();
+        folders.forEach(System.out::println);
+
+        System.out.print("\nClick any key to exit .\n-> ");
+        String s = scanner.nextLine();
     }
 
     public void getFolder() throws SQLException {
@@ -118,6 +119,11 @@ public class FolderController extends Controller {
                     }
                 }
 
+            }else{
+                System.out.println(folder.toString());
+
+                System.out.print("\nClick any key to exit .\n-> ");
+                String s = scanner.nextLine();
             }
         }
 
@@ -221,7 +227,7 @@ public class FolderController extends Controller {
                         medicine.setStatus(DocumentStatus.NOT_ACCEPTED);
                     }
                 }
-
+                medicine.setType(DocumentType.MEDICINE);
                 medicine.setCreatedAt(createdAt);
                 medicine.setFolder(folder);
 
@@ -293,6 +299,7 @@ public class FolderController extends Controller {
                     }
                 }
 
+                radio.setType(DocumentType.RADIO);
                 radio.setCreatedAt(new Date(System.currentTimeMillis()));
                 radio.setFolder(folder);
 
@@ -364,6 +371,8 @@ public class FolderController extends Controller {
                         scanner1.setStatus(DocumentStatus.NOT_ACCEPTED);
                     }
                 }
+
+                scanner1.setType(DocumentType.SCANNER);
 
                 scanner1.setCreatedAt(new Date(System.currentTimeMillis()));
                 scanner1.setFolder(folder);

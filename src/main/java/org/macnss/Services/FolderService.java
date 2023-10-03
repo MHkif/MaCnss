@@ -19,21 +19,9 @@ public class FolderService {
         }
     }
 
-
-    public double calculate(Folder folder){
-        return 0;
-    }
-    public Folder updateFolder(Folder folder){
-        if (folderDao.update(folder) != null){
-            return folder;
-        }else {
-            return null;
-        }
-    }
     public List<Folder> getAll() throws SQLException {
 
-        List<Folder> folders = folderDao.getAll();
-        return folders;
+        return folderDao.getAll();
     }
     public Folder get(String folderId) throws SQLException {
         if (folderDao.get(folderId) != null){
