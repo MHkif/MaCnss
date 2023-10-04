@@ -11,11 +11,8 @@ public abstract class ADocument {
     private String id;
     private String title;
     private Date createdAt;
-
-
-
     private DocumentType type = DocumentType.DOCUMENT;
-    private DocumentStatus status = DocumentStatus.ACCEPTED;
+    private DocumentStatus status = DocumentStatus.REFUND;
     private Folder folder;
     private float price;
     private float refund_rate = 0;

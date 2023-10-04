@@ -3,6 +3,7 @@ package org.macnss.dao.impl;
 
 import org.macnss.Database.Database;
 import org.macnss.entity.Admin;
+import org.macnss.helpers.Session;
 
 import java.sql.*;
 
@@ -23,6 +24,7 @@ public class AdminDAO {
                 admin = Admin.getInstance(
                         res.getString("id"), res.getString("fullName"),
                         res.getString("email"), res.getString("password") );
+                Session.getInstance().set("Admin", admin);
             }else{
                 return null;
             }

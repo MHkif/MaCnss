@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.sql.Date;
-import java.util.stream.Stream;
 
 public class FolderController extends Controller {
     private  FolderService folderService = new FolderService();
@@ -224,7 +223,8 @@ public class FolderController extends Controller {
                         PrintStatement.validateNumberStatement(med_refund, "Refund Rate");
                         medicine.setRefund_rate(Float.parseFloat(med_refund));
                     }else{
-                        medicine.setStatus(DocumentStatus.NOT_ACCEPTED);
+                        // # TODO : dans ce cas le patient peut avoir juste le remboursement d’une visite médicale
+                        medicine.setStatus(DocumentStatus.NOT_REFUND);
                     }
                 }
                 medicine.setType(DocumentType.MEDICINE);
@@ -295,7 +295,7 @@ public class FolderController extends Controller {
                         PrintStatement.validateNumberStatement(med_refund, "Refund Rate");
                         radio.setRefund_rate(Float.parseFloat(med_refund));
                     }else{
-                        radio.setStatus(DocumentStatus.NOT_ACCEPTED);
+                        radio.setStatus(DocumentStatus.NOT_REFUND);
                     }
                 }
 
@@ -368,7 +368,7 @@ public class FolderController extends Controller {
                         PrintStatement.validateNumberStatement(med_refund, "Refund Rate");
                         scanner1.setRefund_rate(Float.parseFloat(med_refund));
                     }else{
-                        scanner1.setStatus(DocumentStatus.NOT_ACCEPTED);
+                        scanner1.setStatus(DocumentStatus.NOT_REFUND);
                     }
                 }
 

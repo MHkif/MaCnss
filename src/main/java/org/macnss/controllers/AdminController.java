@@ -1,5 +1,6 @@
 package org.macnss.controllers;
 
+import org.macnss.Main;
 import org.macnss.Services.AdminService;
 import org.macnss.entity.Admin;
 import org.macnss.entity.Agent;
@@ -7,16 +8,19 @@ import org.macnss.helpers.PrintStatement;
 import org.macnss.helpers.UniqueCodeGenerator;
 import org.macnss.helpers.Validator;
 
-import java.sql.SQLException;
-import java.util.Scanner;
-import java.util.UUID;
-
 public class AdminController extends Controller {
-    AdminService adminService = new AdminService();
+    private Admin admin;
+    private static final AdminService adminService = new AdminService();
+
+    public AdminController() {
+        if(Main.SESSION.has("Admin")){
+           Navigator.INSTANCE().index();
+        }else {
+            this.admin = (Admin) Main.SESSION.get("Admin");
+        }
+    }
 
     public  void index(){
-
-
         PrintStatement.opening("Admin Panel");
         try {
 
@@ -34,7 +38,6 @@ public class AdminController extends Controller {
                         case 4 -> this.getAllAgents();
                         case 5 -> this.deleteAgent();
                     }
-
                 }
                 else{
                     System.out.println("\nInvalid Entry , Choose one of the following options: ");
@@ -44,33 +47,6 @@ public class AdminController extends Controller {
         }catch (Exception e){
             System.out.println("Crashed : "+e);
         }
-
-    }
-
-  
-    public void login(){
-
-        System.out.println("Login as admin , Enter your creadentials :");
-        System.out.print("-> Email : ");
-        String email = scanner.nextLine();
-        PrintStatement.validateEmailStatement(email);
-        System.out.print("-> Password : ");
-        String password = scanner.nextLine();
-        PrintStatement.validatePasswordStatement(password);
-
-
-        try {
-           if(adminService.login(email, password) != null){
-               Admin admin = adminService.login(email, password);
-               this.index();
-           }else {
-
-               System.out.println("Admin not found .");
-           }
-
-       } catch (SQLException e) {
-           throw new RuntimeException(e);
-       }
     }
 
     public void createAgent(){
